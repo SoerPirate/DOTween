@@ -1,25 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float _duration;
 
-    private Vector3 currentEulerAngles;
-    private Vector3 rotationDirection;
+    private Vector3 _target;
 
-    void Start()
+    private void Start()
     {
-        currentEulerAngles = transform.localEulerAngles;
+        _target = transform.rotation.eulerAngles + new Vector3(0, 1, 0);
 
-        rotationDirection = new Vector3(0, 1, 0);
-    }
-
-    void Update()
-    {
-        currentEulerAngles += rotationDirection * _speed * Time.deltaTime;
-
-        transform.localEulerAngles = currentEulerAngles;
+        transform.DORotate(_target, _duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);  
     }
 }

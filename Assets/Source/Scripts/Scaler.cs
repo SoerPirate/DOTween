@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Scaler : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float _duration;
 
-    private Vector3 _initialScale;
+    private Vector3 _target;
 
-    void Start()
+    private void Start()
     {
-        _initialScale = transform.localScale;
-    }
+        _target = transform.localScale + new Vector3(1, 1, 1);
 
-    void Update()
-    {
-        transform.localScale += _initialScale * _speed * Time.deltaTime;
+        transform.DOScale(_target, _duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
     }
 }
